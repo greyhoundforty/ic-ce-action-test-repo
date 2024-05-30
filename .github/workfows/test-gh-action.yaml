@@ -3,7 +3,7 @@ name: Test Code Engine GitHub Action
 on:
   push:
     branches:
-      - testing
+      - main
 
 env:
   CODE_ENGINE_REGION: ${{ vars.CODE_ENGINE_REGION}}
