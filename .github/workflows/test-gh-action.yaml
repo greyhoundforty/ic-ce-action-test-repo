@@ -31,22 +31,22 @@ jobs:
         workload_port: 8080
         build_source: './ce-app-code'
 
-  # code-engine-job:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Check out code
-  #     uses: actions/checkout@v3
+  code-engine-job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
 
-  #   - name: Test job deployment and update to Code Engine
-  #     uses: cloud-design-dev/ibmcloud-code-engine-github-action@v2
-  #     with:
-  #       ibmcloud_api_key: ${{ secrets.IBMCLOUD_API_KEY }}
-  #       resource_group: ${{ env.RESOURCE_GROUP }}
-  #       code_engine_region: ${{ env.CODE_ENGINE_REGION }}
-  #       code_engine_project: ${{ env.CODE_ENGINE_PROJECT }}
-  #       workload_type: 'job'
-  #       workload_name: "${{ env.WORKLOAD_NAME }}-job"
-  #       build_source: './ce-job-code'
+    - name: Test job deployment and update to Code Engine
+      uses: cloud-design-dev/ibmcloud-code-engine-github-action@v2
+      with:
+        ibmcloud_api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+        resource_group: ${{ env.RESOURCE_GROUP }}
+        code_engine_region: ${{ env.CODE_ENGINE_REGION }}
+        code_engine_project: ${{ env.CODE_ENGINE_PROJECT }}
+        workload_type: 'job'
+        workload_name: "${{ env.WORKLOAD_NAME }}-job"
+        build_source: './ce-job-code'
 
   # code-engine-py-fn:
   #   runs-on: ubuntu-latest
