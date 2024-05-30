@@ -1,0 +1,86 @@
+name: Test Code Engine GitHub Action
+
+on:
+  push:
+    branches:
+      - testing
+
+env:
+  CODE_ENGINE_REGION: ${{ vars.CODE_ENGINE_REGION}}
+  CODE_ENGINE_PROJECT: ${{ vars.CODE_ENGINE_PROJECT }}
+  WORKLOAD_NAME: ${{ vars.WORKLOAD_NAME }}
+  RESOURCE_GROUP: ${{ vars.RESOURCE_GROUP}}
+
+jobs:
+
+  code-engine-app:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Test Appapp deployment to Code Engine
+      uses: cloud-design-dev/ibmcloud-code-engine-github-action@v2
+      with:
+        ibmcloud_api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+        resource_group: ${{ env.RESOURCE_GROUP }}
+        code_engine_region: ${{ env.CODE_ENGINE_REGION }}
+        code_engine_project: ${{ env.CODE_ENGINE_PROJECT }}
+        workload_type: 'app'
+        workload_name: "${{ env.WORKLOAD_NAME }}-app"
+        workload_port: 8080
+        build_source: './ce-app-code'
+
+  # code-engine-job:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Check out code
+  #     uses: actions/checkout@v3
+
+  #   - name: Test job deployment and update to Code Engine
+  #     uses: cloud-design-dev/ibmcloud-code-engine-github-action@v2
+  #     with:
+  #       ibmcloud_api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+  #       resource_group: ${{ env.RESOURCE_GROUP }}
+  #       code_engine_region: ${{ env.CODE_ENGINE_REGION }}
+  #       code_engine_project: ${{ env.CODE_ENGINE_PROJECT }}
+  #       workload_type: 'job'
+  #       workload_name: "${{ env.WORKLOAD_NAME }}-job"
+  #       build_source: './ce-job-code'
+
+  # code-engine-py-fn:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Check out code
+  #     uses: actions/checkout@v3
+
+  #   - name: Test python function deployment and update to Code Engine
+  #     uses: cloud-design-dev/ibmcloud-code-engine-github-action@v2
+  #     with:
+  #       ibmcloud_api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+  #       resource_group: ${{ env.RESOURCE_GROUP }}
+  #       code_engine_region: ${{ env.CODE_ENGINE_REGION }}
+  #       code_engine_project: ${{ env.CODE_ENGINE_PROJECT }}
+  #       workload_type: 'fn'
+  #       workload_runtime: 'python-3.11'
+  #       workload_name: "${{ env.WORKLOAD_NAME }}-py-fn"
+  #       build_source: './ce-py-fn-code'
+
+  # code-engine-py-js:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Check out code
+  #     uses: actions/checkout@v3
+
+  #   - name: Test nodejs function deployment and update to Code Engine
+  #     uses: cloud-design-dev/ibmcloud-code-engine-github-action@v2
+  #     with:
+  #       ibmcloud_api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+  #       resource_group: ${{ env.RESOURCE_GROUP }}
+  #       code_engine_region: ${{ env.CODE_ENGINE_REGION }}
+  #       code_engine_project: ${{ env.CODE_ENGINE_PROJECT }}
+  #       workload_type: 'fn'
+  #       workload_runtime: 'nodejs-18'
+  #       workload_name: "${{ env.WORKLOAD_NAME }}-js-fn"
+  #       build_source: './ce-py-js-code'
+        
